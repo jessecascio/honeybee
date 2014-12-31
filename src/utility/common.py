@@ -2,7 +2,7 @@ from fabric.api import run,env,local,sudo
 import ConfigParser
 
 """
-Common functionality used across all apps
+Common functionality used across all applications
 """
 
 """
@@ -10,8 +10,8 @@ Copy a local file to the server
 """
 def scp(template, destination, owner=None, permissions=None):
 	"""
-	@param string: path to local template file
-	@param string: absolute path to location on server, include file name
+	@param string: path to local template file, EX: templates/sshd_config.conf
+	@param string: absolute path to location on server, EX: /etc/ssh/sshd_config/conf
 	@param string: owner of file
 	@param string: permissions of file
 	"""
@@ -98,7 +98,7 @@ def swap(size):
 Reads an .ini config file and assignes values to env global dict
 Uses format, env.section_option, no spaces
 """
-def config_reader(config):
+def config(config):
 	"""
 	@param string: path to local config file
 	"""

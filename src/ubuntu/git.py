@@ -1,7 +1,7 @@
-from fabric.api import run
+from fabric.api import run,sudo
 
 def git():
-    run('sudo apt-get install git -y')
+    sudo('apt-get install git -y')
     
 """
 Clone git code base
@@ -20,9 +20,9 @@ def git_clone(url, destination, owner=None, permissions=None):
 	run('cd /tmp/honeybee_git && git clone %(url)s'%{'url':url})
 
 	if owner is not None:
-		run('sudo chown -R %(owner)s:%(owner)s /tmp/honeybee_git/*'%{'owner':owner})
+		sudo('chown -R %(owner)s:%(owner)s /tmp/honeybee_git/*'%{'owner':owner})
 
 	if permissions is not None:
-		run('sudo chmod -R %(permissions)s /tmp/honeybee_git/*'%{'permissions':permissions})
+		sudo('chmod -R %(permissions)s /tmp/honeybee_git/*'%{'permissions':permissions})
 
-	run('sudo mv /tmp/honeybee_git/* %(destination)s'%{'destination':destination})
+	sudo('mv /tmp/honeybee_git/* %(destination)s'%{'destination':destination})

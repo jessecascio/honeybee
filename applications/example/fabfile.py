@@ -10,7 +10,7 @@ from servers.database import honeycomb as database
 env.user = 'jesse'
 
 # load config into env.
-config_reader('config/config.ini')
+config('config/config.ini')
 
 # code path
 code_path = '/var/www'

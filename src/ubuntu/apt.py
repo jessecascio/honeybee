@@ -1,5 +1,5 @@
-from fabric.api import run
+from fabric.api import sudo
 
 def apt_update():
-    run('sudo apt-get update -y')
+    sudo('apt-get update -y')
     

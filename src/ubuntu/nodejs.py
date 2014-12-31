@@ -1,5 +1,5 @@
-from fabric.api import run
+from fabric.api import sudo
 
 def nodejs():
-    run('sudo apt-get install nodejs -y')
-    run('sudo apt-get install npm -y')
+    sudo('apt-get install nodejs -y')
+    sudo('apt-get install npm -y')

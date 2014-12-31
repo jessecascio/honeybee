@@ -1,4 +1,4 @@
-from fabric.api import run
+from fabric.api import sudo
 
 def apache2():
-    run('sudo apt-get install apache2 -y')
+    sudo('apt-get install apache2 -y')
