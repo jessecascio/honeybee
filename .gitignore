@@ -1,0 +1,9 @@
+# compiled python files
+*.pyc
+*.pyo
+
+# vagrant files
+**/.vagrant/
+
+# sql dumps
+*.sql
