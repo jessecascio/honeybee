@@ -7,3 +7,6 @@
 
 # sql dumps
 *.sql
+
+# keep example app
+applications/*
