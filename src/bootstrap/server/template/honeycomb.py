@@ -9,19 +9,19 @@ Commands for this server type
 __all__ = ['plant','pollinate','flower']
 
 # path to template files
-templates = 'servers/web/templates'
+%%TEMPLATE_PATH%%
 
 @task()
-@roles('web')
+%%ROLES%%
 def plant():
 	pass
 
 @task()
-@roles('web')
+%%ROLES%%
 def pollinate():
 	pass
 
 @task()
-@roles('web')
+%%ROLES%%
 def flower():
 	pass
