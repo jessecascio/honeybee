@@ -10,7 +10,7 @@ Commands for this server type
 """
 
 # functions to share
-__all__ = ['plant','pollinate','flower']
+__all__ = ['plant','pollinate','harvest']
 
 # path to template files
 templates = 'servers/database/templates'
@@ -58,7 +58,7 @@ def pollinate():
 
 @task()
 @roles('database')
-def flower():
+def harvest():
 	pass
 
 """

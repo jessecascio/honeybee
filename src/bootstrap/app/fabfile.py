@@ -13,7 +13,7 @@ beekeeper web.harvest --user=swift
 config('config/config.ini')
 
 """
-Server IP Addresses
+Server IP addresses
 @example env.roledefs['mongo'] = ['283.23.45.3', '127.0.0.1:2024]
 """
 env.roledefs = {
@@ -21,9 +21,17 @@ env.roledefs = {
 }
 
 """
-Server private IP Addresses
-@example env.roledefs['mongo'] = ['10.2.2.4', '192.1.1.10']
+Server private IP addresses
+@example env.private['mongo'] = ['10.2.2.4', '192.1.1.10']
 """
 env.private = {
+	'server' : ['']
+}
+
+"""
+Tunnel public IP addresses
+@example env.tunnel['mongo'] = ['283.23.45.3', '283.23.545.3']
+"""
+env.tunnel = {
 	'server' : ['']
 }

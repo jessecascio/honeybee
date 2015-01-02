@@ -1,4 +1,4 @@
-from fabric.api import sudo
+from fabric.api import sudo,run
 
 def php55():
     sudo('apt-get install php5 php5-common php5-cli php5-mysql php5-memcached php5-curl php5-mongo php5-apcu -y')
@@ -11,7 +11,7 @@ def phalcon():
 	sudo('apt-get install php5-phalcon -y')
 
 def composer():
-	sudo('curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/tmp')
+	run('sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/tmp')
 	sudo('mv /tmp/composer.phar /usr/local/bin/composer')
 	sudo('chmod +x /usr/local/bin/composer')
     

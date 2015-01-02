@@ -14,7 +14,7 @@ Commands for this server type
 """
 
 # functions to share
-__all__ = ['plant','pollinate','flower']
+__all__ = ['plant','pollinate','harvest']
 
 # path to template files 
 templates = 'servers/web/templates'
@@ -87,7 +87,7 @@ def pollinate():
 
 @task()
 @roles('web')
-def flower():
+def harvest():
 	pass
 
 """

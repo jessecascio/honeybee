@@ -61,10 +61,6 @@ def iptables_web():
 	iptables_common()
 	iptables_local()
 
-	# enable local loopback
-	sudo('iptables -I INPUT 1 -i lo -j ACCEPT')
-	sudo('iptables -A OUTPUT -o lo -j ACCEPT')
-
 	# open web ports, ssh, git
 	sudo('iptables -A INPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT')
 	sudo('iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j ACCEPT')
@@ -76,10 +72,7 @@ def iptables_web():
 	sudo('iptables -A OUTPUT -p tcp --sport 9418 -m state --state NEW,ESTABLISHED -j ACCEPT')
 
 	# support conntrack
-	# http://superuser.com/questions/828198/iptables-on-debian-blocking-git-pull-http-api-requests-etc
 	sudo('iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT')
-	# sudo('iptables -A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT')
-	# sudo('iptables -A INPUT -4 -p icmp -j ACCEPT')
 
 	iptables_enforce()
 

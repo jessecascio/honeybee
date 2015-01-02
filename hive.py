@@ -4,18 +4,21 @@ import sys,shutil,os,subprocess
 """
 EXAMPLES
 
-./hive.py flower app <>
-./hive.py flower server <app> <>
-./hive.py exterminate app <>
-./hive.py exterminate server <app> <>
+./hive.py generate app <>
+./hive.py generate server <app> <>
+./hive.py remove app <>
+./hive.py remove server <app> <>
 """
+
+create = "generate"
+remove = "remove"
 
 """
 Grab command line args
 """
 try:
 	action = sys.argv[1]
-	if action != "flower" and action != "exterminate":
+	if action != create and action != remove:
 		raise Exception()
 
 	type = sys.argv[2]
@@ -34,14 +37,14 @@ try:
 			sys.exit(2)
 
 except Exception as e:
-	print "ERROR: Missing arguments \n ./hive.py flower/exterminate app/server **<name(s)>"
+	print "ERROR: Missing arguments \n ./hive.py generate/remove app/server **<name(s)>"
 	sys.exit(2)
 
 """
 Do work
 """
 if type == "app":
-	if action == "flower":
+	if action == create:
 		# copy folders
 		try:
 			shutil.copytree("src/bootstrap/app", "applications/"+app_name)
@@ -56,7 +59,7 @@ if type == "app":
 		except OSError as e:
 			print "ERROR: Unable to clean app: " + e.strerror
 				
-	if action == "exterminate":
+	if action == remove:
 		# verify
 		if raw_input("Delete "+app_name+"? [y/n]: ") != "y" :
 			sys.exit(2)
@@ -73,7 +76,7 @@ if type == "server":
 		print "ERROR: Application ("+app_name+") does not exist"
 		sys.exit(2)
 
-	if action == "flower":
+	if action == create:
 		# move folders
 		try:
 			shutil.copytree("src/bootstrap/server/example", "applications/"+app_name+"/servers/"+server_name)
@@ -100,7 +103,7 @@ if type == "server":
 		fab.seek(0)
 		fab.writelines(lines)
 
-	if action == "exterminate":
+	if action == remove:
 		# confirm
 		if raw_input("Delete "+server_name+"? [y/n]: ") != "y" :
 			sys.exit(2)
