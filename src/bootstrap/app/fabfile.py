@@ -1,6 +1,14 @@
 from fabric.api import *
 from src.utility.common import *
 
+"""
+EXAMPLE
+
+beekeeper web.plant --user=swift
+beekeeper web.pollinate --user=swift
+beekeeper web.harvest --user=swift
+"""
+
 # load config inti env.
 config('config/config.ini')
 

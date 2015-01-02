@@ -3,25 +3,30 @@ from src.utility.common import *
 from servers.web import honeycomb as web
 from servers.database import honeycomb as database
 
-# beekeeper web.plant:host=10.2.2.2 --user=vagrant
-# ssh -f jesse@104.236.79.221 -L 2024:104.236.73.146:22 -N
+"""
+EXAMPLE
 
-# prevents command line override, defaults to user running fab
-env.user = 'jesse'
+beekeeper web.plant --user=swift
+beekeeper web.pollinate --user=swift
+beekeeper web.harvest --user=swift
+"""
 
-# load config into env.
+# load config inti env.
 config('config/config.ini')
 
-# server ips
+"""
+Server IP Addresses
+@example env.roledefs['mongo'] = ['283.23.45.3', '127.0.0.1:2024]
+"""
 env.roledefs = {
-    'web'      : ['73.293.48.34'],
-    'database' : ['127.0.0.1:2024']
+    'server' : ['']
 }
 
-# private ips
+"""
+Server private IP Addresses
+@example env.roledefs['mongo'] = ['10.2.2.4', '192.1.1.10']
+"""
 env.private = {
-	'web'     : ['10.136.145.34'],
-	'database': ['10.163.153.59']
+	'server' : ['']
 }
-
 

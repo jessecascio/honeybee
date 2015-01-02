@@ -7,9 +7,3 @@
 
 # sql dumps
 *.sql
-
-# keep example app
-applications/*
-
-# keep example test
-test/*
