@@ -1,14 +1,17 @@
 #!/usr/bin/python
 import sys,shutil,os,subprocess
 
-# ./hive.py flower app <>
-# ./hive.py exterminate app <>
+"""
+EXAMPLES
 
-# ./hive.py flower server <app> <>
-# ./hive.py exterminate server <app> <>
+./hive.py flower app <>
+./hive.py flower server <app> <>
+./hive.py exterminate app <>
+./hive.py exterminate server <app> <>
+"""
 
 """
-Grab action
+Grab command line args
 """
 try:
 	action = sys.argv[1]
@@ -35,10 +38,11 @@ except Exception as e:
 	sys.exit(2)
 
 """
-Determine type
+Do work
 """
 if type == "app":
 	if action == "flower":
+		# copy folders
 		try:
 			shutil.copytree("src/bootstrap/app", "applications/"+app_name)
 			shutil.copytree("src/bootstrap/test", "test/"+app_name)
@@ -53,9 +57,11 @@ if type == "app":
 			print "ERROR: Unable to clean app: " + e.strerror
 				
 	if action == "exterminate":
+		# verify
 		if raw_input("Delete "+app_name+"? [y/n]: ") != "y" :
 			sys.exit(2)
 
+		# remove
 		try:
 			shutil.rmtree("applications/"+app_name)
 			shutil.rmtree("test/"+app_name)
@@ -68,6 +74,7 @@ if type == "server":
 		sys.exit(2)
 
 	if action == "flower":
+		# move folders
 		try:
 			shutil.copytree("src/bootstrap/server/example", "applications/"+app_name+"/servers/"+server_name)
 		except OSError as e:
@@ -94,9 +101,11 @@ if type == "server":
 		fab.writelines(lines)
 
 	if action == "exterminate":
+		# confirm
 		if raw_input("Delete "+server_name+"? [y/n]: ") != "y" :
 			sys.exit(2)
 
+		# remove
 		try:
 			shutil.rmtree("applications/"+app_name+"/servers/"+server_name)
 		except OSError as e:

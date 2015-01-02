@@ -11,5 +11,5 @@
 # keep example app
 applications/*
 
-# no test dirs
+# keep example test
 test/*
