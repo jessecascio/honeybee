@@ -10,3 +10,5 @@
 
 # keep example app
 applications/*
+
+# no test dirs
