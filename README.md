@@ -38,9 +38,9 @@ Available commands:
     mysql.harvest
     mysql.plant
     mysql.pollinate
-    web.harvest
-    web.plant
-    web.pollinate
+    apache.harvest
+    apache.plant
+    apache.pollinate
 
 ```
 
