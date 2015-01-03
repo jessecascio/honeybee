@@ -1,5 +1,6 @@
 from fabric.api import *
 from src.utility.common import *
+from tasks import honeycomb as task
 
 """
 EXAMPLE

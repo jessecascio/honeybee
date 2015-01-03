@@ -51,13 +51,14 @@ if type == "app":
 			shutil.copytree("src/bootstrap/test", "test/"+app_name)
 		except OSError as e:
 			print "ERROR: Unable to create app: " + e.strerror
+			sys.exit(2)
 
 		# remove placeholder files
 		try:
-			os.remove("applications/"+app_name+"/tasks/.placeholder")
 			os.remove("applications/"+app_name+"/templates/.placeholder")
 		except OSError as e:
 			print "ERROR: Unable to clean app: " + e.strerror
+			sys.exit(2)
 				
 	if action == remove:
 		# verify
@@ -70,6 +71,7 @@ if type == "app":
 			shutil.rmtree("test/"+app_name)
 		except OSError as e:
 			print "ERROR: Unable to remove app: " + e.strerror
+			sys.exit(2)
 
 if type == "server":
 	if os.path.isdir("applications/"+app_name) == False:
@@ -82,12 +84,14 @@ if type == "server":
 			shutil.copytree("src/bootstrap/server/example", "applications/"+app_name+"/servers/"+server_name)
 		except OSError as e:
 			print "ERROR: Unable to create server: " + e.strerror
+			sys.exit(2)
 
 		# remove tmp files
 		try:
 			os.remove("applications/"+app_name+"/servers/"+server_name+"/templates/.placeholder")
 		except OSError as e:
 			print "ERROR: Unable to clean server: " + e.strerror
+			sys.exit(2)
 
 		# update configs
 		path = "applications/"+app_name+"/servers/"+server_name+"/honeycomb.py"
@@ -98,7 +102,7 @@ if type == "server":
 		# import server in fabfile
 		fab = open("applications/"+app_name+"/fabfile.py", "r+")
 		lines = fab.readlines()
-		lines.insert(2,"from servers."+server_name+" import honeycomb as "+server_name+"\n")
+		lines.insert(3,"from servers."+server_name+" import honeycomb as "+server_name+"\n")
 		fab.truncate(0)         
 		fab.seek(0)
 		fab.writelines(lines)
@@ -113,6 +117,7 @@ if type == "server":
 			shutil.rmtree("applications/"+app_name+"/servers/"+server_name)
 		except OSError as e:
 			print "ERROR: Unable to remove server: " + e.strerror
+			sys.exit(2)
 
 		# remove import from fabfile
 		path = "applications/"+app_name+"/fabfile.py"
