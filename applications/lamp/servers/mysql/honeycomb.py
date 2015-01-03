@@ -55,11 +55,8 @@ def plant():
 @task()
 @roles("mysql")
 def pollinate():
-	web_pub   = env.roledefs['web'][0]
-	mysql_tun = env.tunnel['mysql'][0]
-
 	# set up tunnel info
-	tunnel(web_pub, '2024', mysql_tun)
+    tunnel(env.roledefs['web'][0], '2024', env.tunnel['mysql'][0])
 
 	# reload the conf file
 	scp(templates + '/my.cnf', '/etc/mysql/my.cnf', 'root', '644')
