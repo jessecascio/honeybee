@@ -17,6 +17,10 @@ templates=  "servers/mysql/templates"
 @task()
 @roles('mysql')
 def plant():
+	web_pub   = env.roledefs['web'][0]
+	web_pri   = env.private['web'][0] 
+	mysql_tun = env.tunnel['mysql'][0]
+
 	# (1) set up tunnel info
 	tunnel(web_pub, '2024', mysql_tun)
 
@@ -33,7 +37,7 @@ def plant():
 
 	# (3) default db/users
 	run('mysql -uroot -p%(pwd)s -e "CREATE DATABASE datahouse"'%{'pwd':env.database_password})
-	run('mysql -uroot -p%(pwd)s -e "CREATE USER \'rick\'@\'%(ip)s\' IDENTIFIED BY \'supersecret\'"'%{'pwd':env.database_password,'ip':web_pri,})
+	run('mysql -uroot -p%(pwd)s -e "CREATE USER \'rick\'@\'%(ip)s\' IDENTIFIED BY \'supersecret\'"'%{'pwd':env.database_password,'ip':web_pri})
 	run('mysql -uroot -p%(pwd)s -e "GRANT ALL PRIVILEGES ON datahouse.* TO \'rick\'@\'%(ip)s\'"'%{'pwd':env.database_password,'ip':web_pri})
 	run('mysql -uroot -p%(pwd)s -e "FLUSH PRIVILEGES"'%{'pwd':env.database_password})
 
