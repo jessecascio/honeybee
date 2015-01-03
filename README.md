@@ -56,5 +56,5 @@ fab apache.pollinate
 
 Harvest, deploy the application
 ```
-fab apache.deploy
+fab apache.harvest
 ```
