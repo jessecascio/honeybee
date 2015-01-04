@@ -31,7 +31,14 @@ tunnel('56.23.53.58', '2024', '289.23.57.34')
 mysql56()
 ```
 
+Pass dynamic variables into template files to push to cluster
+
+```
+template('templates/mongo/mongod.conf', '/etc/mongod.conf', {'%%BIND-IP%%':mongo_ip})
+```
+
 Clean, limited Python Fabric tasks
+
 ```
 Available commands:
 
