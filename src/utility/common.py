@@ -1,5 +1,5 @@
 from fabric.api import run,env,local,sudo
-import ConfigParser
+import ConfigParser,subprocess,pipes
 
 """
 Common functionality used across all applications
@@ -25,6 +25,26 @@ def scp(template, destination, owner=None, permissions=None):
 
 	if permissions is not None:
 		sudo('chmod %(permissions)s %(destination)s'%{'destination':destination,'permissions':permissions})
+
+"""
+Similar to scp, except accepts param to insert data into the template
+"""
+def template(template, destination, data, owner=None, permissions=None):
+	"""
+	@param string: path to local template file, EX: templates/sshd_config.conf
+	@param string: absolute path to location on server, EX: /etc/ssh/sshd_config/conf
+	@param dict  : data to put into template, key:val
+	@param string: owner of file
+	@param string: permissions of file
+	"""
+	# make a local copy of the template
+	local('cp %(template)s /tmp/honeybee_tmp_file'%{'template':template})
+	# swap in all the vars
+	for key,val in data.iteritems():
+		subprocess.call("sed -i.tmp 's/"+key+"/"+val+"/g' /tmp/honeybee_tmp_file", shell=True)		
+		subprocess.call("rm /tmp/honeybee_tmp_file.tmp", shell=True)
+		# scp to server
+		scp('/tmp/honeybee_tmp_file', destination, owner, permissions)	
 
 """
 Copy a local directory, or a directory's files to server
