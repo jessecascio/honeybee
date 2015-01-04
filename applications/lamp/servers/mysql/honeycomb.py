@@ -19,10 +19,11 @@ templates=  "servers/mysql/templates"
 def plant():
 	web_pub   = env.roledefs['web'][0]
 	web_pri   = env.private['web'][0] 
-	mysql_tun = env.tunnel['mysql'][0]
+	mysql_pub = env.tunnel['mysql'][0]
+	mysql_pri = env.private['mysql'][0]
 
 	# (1) set up tunnel info
-	tunnel(web_pub, '2024', mysql_tun)
+	tunnel(web_pub, '2024', mysql_pub)
 
 	# add swap
 	swap('2G')
@@ -42,7 +43,7 @@ def plant():
 	run('mysql -uroot -p%(pwd)s -e "FLUSH PRIVILEGES"'%{'pwd':env.database_password})
 
 	# (4) default db settings
-	scp(templates + '/my.cnf', '/etc/mysql/my.cnf', 'root', '644')
+	template(templates + '/my.cnf', '/etc/mysql/my.cnf', {'%%BIND-IP%%':mysql_pri}, 'root', '644')
 	sudo('service mysql restart')
 
 	# (5) build allowable ips to access server, set iptables
@@ -56,10 +57,10 @@ def plant():
 @roles("mysql")
 def pollinate():
 	# set up tunnel info
-    tunnel(env.roledefs['web'][0], '2024', env.tunnel['mysql'][0])
+	tunnel(env.roledefs['web'][0], '2024', env.tunnel['mysql'][0])
 
 	# reload the conf file
-	scp(templates + '/my.cnf', '/etc/mysql/my.cnf', 'root', '644')
+	template(templates + '/my.cnf', '/etc/mysql/my.cnf', {'%%BIND-IP%%':env.private['mysql'][0]}, 'root', '644')
 	sudo('service mysql reload')
 
 	# kill tunnel
