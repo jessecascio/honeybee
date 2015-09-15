@@ -7,3 +7,5 @@
 
 # sql dumps
 *.sql
+
+**/aplications/!lamp

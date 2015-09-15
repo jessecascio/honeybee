@@ -59,7 +59,9 @@ if type == "app":
 		except OSError as e:
 			print "ERROR: Unable to clean app: " + e.strerror
 			sys.exit(2)
-				
+		
+		print "SUCCESSFULLY Created New App"
+
 	if action == remove:
 		# verify
 		if raw_input("Delete "+app_name+"? [y/n]: ") != "y" :
@@ -72,6 +74,8 @@ if type == "app":
 		except OSError as e:
 			print "ERROR: Unable to remove app: " + e.strerror
 			sys.exit(2)
+
+		print "REMOVED App"
 
 if type == "server":
 	if os.path.isdir("applications/"+app_name) == False:
@@ -107,6 +111,8 @@ if type == "server":
 		fab.seek(0)
 		fab.writelines(lines)
 
+		print "SUCCESSFULLY Created Server"
+
 	if action == remove:
 		# confirm
 		if raw_input("Delete "+server_name+"? [y/n]: ") != "y" :
@@ -124,3 +130,4 @@ if type == "server":
 		subprocess.call("sed -i.tmp 's/from servers\."+server_name+"\ import\ honeycomb\ as\ "+server_name+"//g' "+path, shell=True)		
 		subprocess.call("rm "+path+".tmp", shell=True)
 
+		print "DELETED Server"
